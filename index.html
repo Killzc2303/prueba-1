@@ -1,79 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página desde QR</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f4f8;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.btn {
-  background: #1976d2;
-  color: white;
-  padding: 12px 25px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-top: 20px;
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Imágenes con Botones</title>
+    <style>
+        /* Estilos CSS básicos para centrar y mejorar la presentación */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #imagenMostrada {
+            margin-top: 30px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            display: none; /* Inicialmente oculta hasta que se pulse un botón */
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>🖼️ Selecciona una Imagen</h1>
 
-<div class="container">
-  <h2>Imágenes desde QR</h2>
-  <p>Presiona un botón para ver la imagen correspondiente.</p>
+        <button onclick="mostrarImagen('imagen1')">Mostrar Gato 🐱</button>
+        <button onclick="mostrarImagen('imagen2')">Mostrar Perro 🐶</button>
 
-  <!-- Botones -->
-  <button class="btn" id="btn1">Imagen 1</button>
-  <button class="btn" id="btn2">Imagen 2</button>
+        <img id="imagenMostrada" src="" alt="Aquí aparecerá la imagen seleccionada">
 
-  <!-- Imagen dinámica -->
-  <img id="preview" src="" alt="Aquí aparecerá la imagen">
-</div>
+    </div>
 
-<script>
+    <script>
+        // FUNCIÓN JAVASCRIPT para cambiar la imagen
+        function mostrarImagen(tipoImagen) {
+            const imagenElement = document.getElementById('imagenMostrada');
+            let urlImagen = '';
 
-// URL de las dos imágenes
-const img1 = "https://static.wikia.nocookie.net/jujutsu-kaisen/images/a/a2/Satoru_Gojo_-_Anime.jpg/revision/latest?cb=20201017190313&path-prefix=es";
-const img2 = "https://i.imgur.com/Jzf1pKJ.jpeg";  // Imagen provisional, puedes reemplazarla
+            // Definimos las URLs de las imágenes
+            // **IMPORTANTE**: Reemplaza estas URLs de ejemplo con las URLs reales
+            // de las imágenes que quieres usar.
+            if (tipoImagen === 'imagen1') {
+                // URL de tu primera imagen (ejemplo: un gato)
+                urlImagen = 'https://picsum.photos/400/300?random=1'; 
+                imagenElement.alt = 'Un gato aleatorio';
+            } else if (tipoImagen === 'imagen2') {
+                // URL de tu segunda imagen (ejemplo: un perro)
+                urlImagen = 'https://picsum.photos/400/300?random=2'; 
+                imagenElement.alt = 'Un perro aleatorio';
+            }
 
-// Botón 1
-document.getElementById("btn1").addEventListener("click", () => {
-  document.getElementById("preview").src = img1;
-});
-
-// Botón 2
-document.getElementById("btn2").addEventListener("click", () => {
-  document.getElementById("preview").src = img2;
-});
-
-</script>
-
+            // Asigna la nueva URL a la imagen y la hace visible
+            if (urlImagen) {
+                imagenElement.src = urlImagen;
+                imagenElement.style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
