@@ -24,6 +24,94 @@
     .controls{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
     .btn{
       appearance:none;border:0;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer;
-      
-::contentReference[oaicite:0]{index=0}
+      background:var(--accent);color:white;min-width:140px;text-decoration:none;display:inline-flex;gap:8px;
+      align-items:center;justify-content:center;
+    }
+    .btn.secondary{background:#4a5568}
+    .open-link{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;
+      text-decoration:none;border:1px solid #e6e9ef;background:#fff;color:#333;font-weight:600;
+      font-size:13px;
+    }
+    .preview{border-radius:10px;overflow:hidden;border:1px solid #e6e9ef;background:#fff;max-width:100%;height:460px;display:grid;place-items:center}
+    .preview img{max-width:100%;max-height:100%;display:block;object-fit:contain}
+    .small{font-size:13px;color:var(--muted);margin-top:12px}
+    footer{margin-top:14px;font-size:13px;color:#8b8f97}
+    @media (max-width:680px){ .preview{height:300px} .controls{flex-direction:column} }
+    /* small icon */
+    .icon-open{font-size:13px;padding:2px 6px;border-radius:6px;background:#eef2ff;color:#2b6cb0}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Página desde QR</h1>
+    <p class="lead">Toca un botón para ver la imagen correspondiente. Usa "Abrir" si quieres verla en otra pestaña.</p>
+
+    <!-- CONTROLES: botones que actualizan preview + enlace para abrir en nueva pestaña -->
+    <div class="controls" id="controls">
+      <!-- Reemplaza las URLs en data-image y href por tus imágenes reales -->
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn" data-image="https://via.placeholder.com/1200x800?text=Imagen+1" type="button">Imagen 1</button>
+        <a class="open-link" href="https://via.placeholder.com/1200x800?text=Imagen+1" target="_blank" rel="noopener noreferrer" title="Abrir imagen 1 en nueva pestaña">
+          Abrir
+        </a>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn secondary" data-image="https://via.placeholder.com/1200x800?text=Imagen+2" type="button">Imagen 2</button>
+        <a class="open-link" href="https://via.placeholder.com/1200x800?text=Imagen+2" target="_blank" rel="noopener noreferrer" title="Abrir imagen 2 en nueva pestaña">
+          Abrir
+        </a>
+      </div>
+    </div>
+
+    <!-- PREVIEW (muestra la imágen dentro de la misma página) -->
+    <div class="preview" id="preview">
+      <img src="https://via.placeholder.com/1200x800?text=Imagen+1" alt="Previsualización" id="previewImg">
+    </div>
+
+    <div class="small">
+      Si prefieres que al pulsar el botón la imagen se abra directamente en otra pestaña, usa el enlace "Abrir".
+    </div>
+
+    <footer>
+      Si quieres, puedo hacer que al pulsar el botón la imagen se abra en un modal con zoom.
+    </footer>
+  </main>
+
+  <script>
+    // Selecciona botones y preview
+    const buttons = document.querySelectorAll('.btn');
+    const previewImg = document.getElementById('previewImg');
+
+    // Cuando se clickea el botón: actualizar preview (no abrir nueva pestaña)
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const url = btn.getAttribute('data-image');
+        if (!url) return;
+        previewImg.src = url;
+        previewImg.alt = 'Imagen cargada';
+      });
+    });
+
+    // Opcional: si quieres que al presionar Enter mientras el botón está enfocado también funcione:
+    buttons.forEach(btn => {
+      btn.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          btn.click();
+        }
+      });
+    });
+
+    // Mejora: cuando la imagen está cargando, puedes mostrar un texto o spinner (simple)
+    previewImg.addEventListener('load', () => {
+      // imagen cargada: podemos hacer algo si quieres (ej. quitar spinner)
+    });
+    previewImg.addEventListener('error', () => {
+      previewImg.alt = 'No se pudo cargar la imagen';
+    });
+  </script>
+</body>
+</html>
+
 
