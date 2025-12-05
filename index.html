@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor de Imágenes con Botones</title>
+    <title>Visor de Imágenes Locales</title>
     <style>
-        /* Estilos CSS básicos para centrar y mejorar la presentación */
+        /* Estilos CSS básicos (los mismos del ejemplo anterior) */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -26,16 +26,16 @@
             max-width: 100%;
             height: auto;
             border: 1px solid #ccc;
-            display: none; /* Inicialmente oculta hasta que se pulse un botón */
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🖼️ Selecciona una Imagen</h1>
+        <h1>🖼️ Selecciona una Imagen Local</h1>
 
-        <button onclick="mostrarImagen('imagen1')">Mostrar Gato 🐱</button>
-        <button onclick="mostrarImagen('imagen2')">Mostrar Perro 🐶</button>
+        <button onclick="mostrarImagen('gato')">Mostrar Gato 🐱</button>
+        <button onclick="mostrarImagen('perro')">Mostrar Perro 🐶</button>
 
         <img id="imagenMostrada" src="" alt="Aquí aparecerá la imagen seleccionada">
 
@@ -47,20 +47,17 @@
             const imagenElement = document.getElementById('imagenMostrada');
             let urlImagen = '';
 
-            // Definimos las URLs de las imágenes
-            // **IMPORTANTE**: Reemplaza estas URLs de ejemplo con las URLs reales
-            // de las imágenes que quieres usar.
-            if (tipoImagen === 'imagen1') {
-                // URL de tu primera imagen (ejemplo: un gato)
-                urlImagen = 'https://picsum.photos/400/300?random=1'; 
-                imagenElement.alt = 'Un gato aleatorio';
-            } else if (tipoImagen === 'imagen2') {
-                // URL de tu segunda imagen (ejemplo: un perro)
-                urlImagen = 'https://picsum.photos/400/300?random=2'; 
-                imagenElement.alt = 'Un perro aleatorio';
+            // **RUTAS RELATIVAS**
+            // Las rutas apuntan a la carpeta 'images'
+            if (tipoImagen === 'gato') {
+                urlImagen = 'images/gato.jpg'; // Asegúrate de que tu imagen se llame 'gato.jpg'
+                imagenElement.alt = 'Un lindo gato';
+            } else if (tipoImagen === 'perro') {
+                urlImagen = 'images/perro.jpg'; // Asegúrate de que tu imagen se llame 'perro.jpg'
+                imagenElement.alt = 'Un perro amigable';
             }
 
-            // Asigna la nueva URL a la imagen y la hace visible
+            // Asigna la nueva URL y hace visible la imagen
             if (urlImagen) {
                 imagenElement.src = urlImagen;
                 imagenElement.style.display = 'block';
